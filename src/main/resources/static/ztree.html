@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ztree</title>
+    <link href="/misc/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css">
+
+    <script src="/misc/js/ztree/jquery-1.4.4.min.js"></script>
+    <script src="/misc/js/ztree/jquery.ztree.all.js"></script>
+    <script src="/misc/js/ztree/jquery.ztree.core.js"></script>
+    <script src="/misc/js/ztree/jquery.ztree.excheck.js"></script>
+    <script src="/misc/js/ztree/jquery.ztree.exedit.js"></script>
+    <script src="/misc/js/ztree/jquery.ztree.exhide.js"></script>
+</head>
+<body>
+
+<div class="widget-body">
+    <div class="widget-main padding-2">
+        <ul id="tree" class="ztree" role="tree"></ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var setting = {
+
+        callback: {
+            onClick: zTreeOnClick
+        }
+    };
+
+    $(document).ready(function () {
+        showReport();
+    });
+
+    function showReport() {
+
+        $.ajax({
+            type: 'post',
+            url: "/ShowTreeData",// 跳转到 action
+            data: {
+            },
+            success: function (data) {
+                var t = $("#tree");
+                t = $.fn.zTree.init(t, setting, data);
+            },
+        });
+    }
+
+    function zTreeOnClick(event, treeId, treeNode) {
+        window.alert("Click with type " + treeNode.type + " with ID "+ treeNode.deviceID);
+    }
+
+
+
+</script>
+</body>
+</html>
